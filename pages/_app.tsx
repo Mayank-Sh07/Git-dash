@@ -1,32 +1,54 @@
-import * as React from "react";
+import React from "react";
 import Head from "next/head";
+import { SWRConfig } from "swr";
 import { AppProps } from "next/app";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../styles/theme";
-import createEmotionCache from "../styles/createEmotionCache";
 
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache();
+const globalFetcher = async (url: string, query: string) => {
+  const data = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(query),
+  });
+  return data.json();
+};
 
-interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache;
-}
+export default function MyApp(props: AppProps) {
+  const { Component, pageProps } = props;
 
-export default function MyApp(props: MyAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  React.useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement!.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
-    <CacheProvider value={emotionCache}>
+    <React.Fragment>
       <Head>
-        <title>Git-Dash</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>Git-dash</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </CacheProvider>
+      <SWRConfig
+        value={{
+          refreshInterval: 3000,
+          fetcher: globalFetcher,
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </SWRConfig>
+    </React.Fragment>
   );
 }
