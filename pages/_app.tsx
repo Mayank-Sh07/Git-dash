@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Layout from "../components/Layout";
 import { SWRConfig } from "swr";
 import { AppProps } from "next/app";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -44,9 +45,10 @@ export default function MyApp(props: AppProps) {
         }}
       >
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ThemeProvider>
       </SWRConfig>
     </React.Fragment>
