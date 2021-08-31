@@ -1,4 +1,6 @@
+// React and Next
 import React from "react";
+// Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,7 +14,7 @@ import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
+// Icons
 import Logo from "@material-ui/icons/SportsVolleyball";
 import GithubIcon from "@material-ui/icons/GitHub";
 import DashboardIcon from "@material-ui/icons/DashboardRounded";
@@ -62,6 +64,7 @@ export default function ResponsiveDrawer() {
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
+  // set sidebar tab to selected
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
@@ -161,6 +164,7 @@ export default function ResponsiveDrawer() {
   );
 }
 
+// Navs
 const primaryNavs = [
   {
     label: "Dashboard",
@@ -173,7 +177,6 @@ const primaryNavs = [
     icon: <AnalyticsIcon />,
   },
 ];
-
 const secondaryNavs = [
   {
     label: "Reports",

@@ -1,4 +1,6 @@
+// React and Next
 import React from "react";
+// Material UI
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
@@ -16,7 +18,7 @@ import {
   createStyles,
   alpha,
 } from "@material-ui/core/styles";
-
+// Icons
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationsRounded from "@material-ui/icons/NotificationsRounded";
 

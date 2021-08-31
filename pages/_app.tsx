@@ -1,25 +1,14 @@
+// React and Next
 import React from "react";
 import Head from "next/head";
-import Layout from "../components/Layout";
-import { SWRConfig } from "swr";
 import { AppProps } from "next/app";
-import { ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../styles/theme";
 // Redux
 import { Provider } from "react-redux";
 import { useStore } from "../redux/store";
-
-const globalFetcher = async (url: string, query: string) => {
-  const data = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(query),
-  });
-  return data.json();
-};
+// Material-UI
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from "@/styles/theme";
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -33,6 +22,9 @@ export default function MyApp(props: AppProps) {
     }
   }, []);
 
+  // @ts-expect-error
+  const Layout = Component.layout || (({ children }) => <>{children}</>);
+
   return (
     <React.Fragment>
       <Head>
@@ -43,19 +35,12 @@ export default function MyApp(props: AppProps) {
         />
       </Head>
       <Provider store={store}>
-        <SWRConfig
-          value={{
-            refreshInterval: 3000,
-            fetcher: globalFetcher,
-          }}
-        >
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
-        </SWRConfig>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
       </Provider>
     </React.Fragment>
   );

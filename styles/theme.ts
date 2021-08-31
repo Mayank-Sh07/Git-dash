@@ -30,6 +30,11 @@ const theme = createTheme({
         fontWeight: 500,
       },
     },
+    MuiListItemAvatar: {
+      root: {
+        minWidth: 48,
+      },
+    },
     MuiListItem: {
       root: {
         "&$selected": {
