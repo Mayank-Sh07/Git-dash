@@ -6,6 +6,9 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../styles/theme";
+// Redux
+import { Provider } from "react-redux";
+import { useStore } from "../redux/store";
 
 const globalFetcher = async (url: string, query: string) => {
   const data = await fetch(url, {
@@ -20,6 +23,7 @@ const globalFetcher = async (url: string, query: string) => {
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
+  const store = useStore(pageProps.initialReduxState);
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -38,19 +42,21 @@ export default function MyApp(props: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <SWRConfig
-        value={{
-          refreshInterval: 3000,
-          fetcher: globalFetcher,
-        }}
-      >
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      </SWRConfig>
+      <Provider store={store}>
+        <SWRConfig
+          value={{
+            refreshInterval: 3000,
+            fetcher: globalFetcher,
+          }}
+        >
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </SWRConfig>
+      </Provider>
     </React.Fragment>
   );
 }

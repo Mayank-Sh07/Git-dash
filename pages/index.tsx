@@ -1,9 +1,12 @@
 import React from "react";
+import { GetServerSideProps } from "next";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import FollowingUserStats from "../components/IndexPage/FollowingUserStats";
-import useSWR from "swr";
+import { indexGQL } from "../redux/composeQuery";
+import { initializeStore } from "../redux/store";
+import { useStore } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,26 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function CenteredGrid() {
   const classes = useStyles();
-  const query = `
-  {
-    user(login: "Mayank-Sh07") {
-      bio
-      following(last: 3) {
-        nodes {
-          bio
-          avatarUrl
-          repositoriesContributedTo {
-            totalCount
-          }
-          repositories(orderBy: {field: CREATED_AT, direction: ASC}) {
-            totalCount
-          }
-        }
-      }
-    }
-  }
-`;
-  const { data } = useSWR(["/api/github-v4", query]);
+  const data = useStore().getState();
 
   return (
     <div className={classes.root}>
@@ -67,3 +51,24 @@ export default function CenteredGrid() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const reduxStore = initializeStore({});
+  const { dispatch } = reduxStore;
+  const query = indexGQL("Mayank-Sh07");
+  const res = await fetch("http://localhost:3000/api/github-v4", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(query),
+  });
+  let data = {};
+  if (res.ok) {
+    data = await res.json();
+    dispatch({ type: "SET_INDEX_DATA", payload: data });
+  }
+  return {
+    props: { initialReduxState: reduxStore.getState() },
+  };
+};
