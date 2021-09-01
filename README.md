@@ -5,25 +5,22 @@ A dashboard for viewing Github data.
 ### [YOUTUBE VIDEO LINK](https://youtu.be/3nPlF2U9U8w)
 
 > ## Setup and Walkthrough
-<br>
+
 ### To use Git-Dash you need to create your Github account personal Access Token. (Instructions Link below)
-<br>
 [Creating PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-<br>
+
 ### Enter your Github username and personal Access Token into the fields to enter into Gitdash.
-<br>
 ![image](https://user-images.githubusercontent.com/52369953/131734994-5c09b2eb-143b-4c86-a341-e2378160e158.png)
-<br>
+
 Upon entering, The dashboard page will be displayed (Server Side rendered) 
-<br>
 Here, you can see the top three people you follow on Github, after which there is statistics on your respositories and pull requests.
-<br>
+
 ![image](https://user-images.githubusercontent.com/52369953/131734376-490f6743-5d24-41b5-ac59-37425b8b7628.png)
-<br>
+
 In the analytics page, you can view and filter your github contributions as a line chart. (Filter by year or month, data displayed per day)
 You can also view files of your github repositories. Moreover, It shows you the pull requests per repository as a Radial Chart
 ![image](https://user-images.githubusercontent.com/52369953/131734851-44347162-50d5-4c74-93d2-cac265ffafb3.png)
-<br>
+
 Note: The other navigations are purely for presentation, I have added Tooltips to make things obvious.
 <br>
 
