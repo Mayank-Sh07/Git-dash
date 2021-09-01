@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ResponsiveDrawer({ children }: LayoutProps) {
   const classes = useStyles();
   const theme = useTheme();
-  const userFullName = useSelector((state) => state.user.name);
+  const userFullName = useSelector((state) => state?.userName);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {

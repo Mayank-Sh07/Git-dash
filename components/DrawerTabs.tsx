@@ -67,17 +67,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ResponsiveDrawer() {
   const classes = useStyles();
   const userData = useSelector((state) => ({
-    name: state.user.name,
-    avatarUrl: state.user.avatarUrl,
-    email: state.user.email,
-    PAT: state.PAT,
+    name: state?.userName,
+    avatarUrl: state.user?.avatarUrl,
+    email: state.user?.email,
+    PAT: state?.PAT,
   }));
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const state = useSelector((state) => state);
-  console.log(state);
-  const router = useRouter();
-  console.log(router.query);
-
   // set sidebar tab to selected
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

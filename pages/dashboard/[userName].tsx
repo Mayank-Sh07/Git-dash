@@ -133,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (res.ok) {
     const data = await res.json();
     // dispatch action to set the response data on the store
-    dispatch({ type: "SET_INDEX_DATA", payload: data });
+    dispatch({ type: "SET_DATA", payload: data });
   }
 
   return {

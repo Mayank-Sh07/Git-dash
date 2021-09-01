@@ -42,3 +42,60 @@ export function dashboardQuery(githubUserName: string): string {
   }
     `;
 }
+
+// For data displayed on the /analytics/[userName] page
+export function analyticsQuery(githubUserName: string): string {
+  return `
+  {
+    user(login: "${githubUserName}") {
+      repositories(affiliations: OWNER, first: 100) {
+        nodes {
+          name
+          commitComments {
+            totalCount
+          }
+        }
+      }
+      contributionsCollection(to: "2021-08-20T23:05:23Z") {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  `;
+}
+
+// For Table data displayed on the /analytics/[userName] page, Demonstrating SWR!
+export function repositoryFilesQuery(
+  githubUserName: string,
+  repoName: string
+): string {
+  return `
+  {
+    repository(owner: "${githubUserName}", name: "${repoName}") {
+      object(expression: "HEAD:") {
+        ... on Tree {
+          entries {
+            name
+            object {
+              ... on Blob {
+                byteSize
+                commitUrl
+              }
+              abbreviatedOid
+            }
+          }
+        }
+      }
+    }
+  }  
+  `;
+}
