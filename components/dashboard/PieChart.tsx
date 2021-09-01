@@ -43,7 +43,7 @@ export default function PieChartJS() {
             fill="#8884d8"
             label
           >
-            {data.map((entry, index) => (
+            {data.map((_entry, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}

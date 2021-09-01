@@ -139,6 +139,7 @@ export default function SignInSide() {
                   href="https://github.com/"
                   target="_blank"
                   variant="body2"
+                  rel="noreferrer"
                 >
                   Forgot Username?
                 </Link>
@@ -148,6 +149,7 @@ export default function SignInSide() {
                   href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token"
                   target="_blank"
                   variant="body2"
+                  rel="noreferrer"
                 >
                   {"Get a Personal Access Token"}
                 </Link>

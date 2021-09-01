@@ -39,7 +39,7 @@ export default function FileTable() {
       headerName: "Access",
       flex: 0.1,
       renderCell: (params) => (
-        <a href={params.row.commitUrl} target="_blank">
+        <a href={params.row.commitUrl} target="_blank" rel="noreferrer">
           <Launch />
         </a>
       ),

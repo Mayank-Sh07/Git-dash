@@ -74,7 +74,7 @@ export default function ResponsiveDrawer() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   // set sidebar tab to selected
   const handleListItemClick = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
     setSelectedIndex(index);
@@ -147,7 +147,7 @@ export default function ResponsiveDrawer() {
             </ListItemSecondaryAction>
           </ListItem>
           {primaryNavs.map(({ label, index, icon, href }) => (
-            <Link href={href}>
+            <Link href={href} key={label}>
               <ListItem
                 key={label}
                 dense

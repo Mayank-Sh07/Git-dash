@@ -1,7 +1,7 @@
 // React and Next
 import React from "react";
 // Material-ui
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import LinkIcon from "@material-ui/icons/Launch";
 import LabelImportant from "@material-ui/icons/LabelImportant";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
@@ -37,7 +37,7 @@ export default function UserRepos({ data }: any) {
           </ListItemAvatar>
           <ListItemText primary={data.name} />
           <ListItemSecondaryAction>
-            <a href={data.url} target="_blank">
+            <a href={data.url} target="_blank" rel="noreferrer">
               <LinkIcon className={classes.small} />
             </a>
           </ListItemSecondaryAction>
