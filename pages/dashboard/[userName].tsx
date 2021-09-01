@@ -124,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { dispatch } = reduxStore;
 
   // Fetch data from /api/github-v4 endpoint
-  const res = await fetch("http://localhost:3000/api/github-v4", {
+  const res = await fetch("https://git-dash.vercel.app/api/github-v4", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
