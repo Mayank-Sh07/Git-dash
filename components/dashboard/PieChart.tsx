@@ -27,8 +27,8 @@ export default function PieChartJS() {
 
   return (
     <>
-      <Typography variant="button">
-        <b>repositoy data pie chart</b>
+      <Typography variant="subtitle2">
+        <b>REPOSITORY DATA PIE CHART</b>
       </Typography>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={400} height={400}>
@@ -38,9 +38,9 @@ export default function PieChartJS() {
             endAngle={0}
             data={data}
             cx="50%"
-            cy="80%"
+            cy="70%"
             outerRadius={80}
-            fill="#8884d8"
+            fill="#BB86FC"
             label
           >
             {data.map((_entry, index) => (

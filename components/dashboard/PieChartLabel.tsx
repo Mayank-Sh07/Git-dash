@@ -32,7 +32,9 @@ export default function NestedList() {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader component="div">PIE CHART LEGEND</ListSubheader>
+        <ListSubheader component="div" style={{ color: "white" }}>
+          PIE CHART LEGEND
+        </ListSubheader>
       }
       className={classes.root}
     >

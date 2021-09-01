@@ -1,22 +1,21 @@
 import { unstable_createMuiStrictModeTheme as createTheme } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
 
 // Create a theme instance.
 const theme = createTheme({
   palette: {
     type: "dark",
     primary: {
-      main: "#8884d8",
+      main: "#3700B3",
     },
     secondary: {
-      main: "#19857b",
+      main: "#5658dd",
     },
     error: {
-      main: red.A400,
+      main: "#CF6679",
     },
     background: {
-      default: "#000000",
-      paper: "#121212",
+      default: "#151719",
+      paper: "#000000",
     },
   },
   overrides: {

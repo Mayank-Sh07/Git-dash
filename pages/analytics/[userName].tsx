@@ -9,11 +9,15 @@ import { useStore } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-// import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
 // Custom Components
 import ContributionsView from "@/components/analytics/ContributionsView";
 import RadarChart from "@/components/analytics/RadarChart";
 import FileTable from "@/components/analytics/FileTable";
+import Loading from "@/components/Loader";
 // Layout Component
 import Layout from "@/components/Layout";
 
@@ -30,15 +34,27 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "300px",
       border: `1px solid ${theme.palette.primary.main}`,
     },
+    chartTitle: {
+      marginTop: theme.spacing(2),
+    },
   })
 );
 
-function Dashboard() {
+function Analytics() {
   const classes = useStyles();
-  const data = useStore().getState();
+  const data: any = useStore().getState();
+  const Repositories = data.user.repositories?.nodes?.map((node) => ({
+    value: node.name,
+    label: node.name,
+  }));
+  const [repo, setRepo] = React.useState(Repositories[0].value);
+
+  const handleRepoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRepo(event.target.value);
+  };
 
   if (!data) {
-    return <h3>Loading</h3>;
+    return <Loading />;
   }
 
   return (
@@ -49,11 +65,40 @@ function Dashboard() {
         </Grid>
         <Grid item xs={12} md={7}>
           <Paper>
-            <FileTable />
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              p={2}
+            >
+              <Typography variant="subtitle2">REPOSITORY FILES</Typography>
+              <TextField
+                select
+                label="Repository"
+                value={repo}
+                variant="outlined"
+                size="small"
+                onChange={handleRepoChange}
+              >
+                {Repositories.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+            <FileTable repo={repo} />
           </Paper>
         </Grid>
         <Grid item xs={12} md={5}>
           <Paper className={classes.chartContainer}>
+            <Typography
+              variant="subtitle2"
+              align="center"
+              className={classes.chartTitle}
+            >
+              GITHUB REPOSITORY PULL REQUESTS
+            </Typography>
             <RadarChart />
           </Paper>
         </Grid>
@@ -62,9 +107,9 @@ function Dashboard() {
   );
 }
 
-// Adding Dashboard Layout
-Dashboard.layout = Layout;
-export default Dashboard;
+// Adding Layout
+Analytics.layout = Layout;
+export default Analytics;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Prepare GQL query

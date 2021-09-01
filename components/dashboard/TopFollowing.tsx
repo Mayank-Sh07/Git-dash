@@ -1,7 +1,12 @@
 // React and Next
 import React from "react";
 // Material-UI
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  withStyles,
+} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
@@ -10,6 +15,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Loading from "@/components/Loader";
 // Icons
 import CommitsIcon from "@material-ui/icons/TrendingUpRounded";
 
@@ -21,14 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       textAlign: "center",
       color: theme.palette.text.secondary,
-      border: `1px solid ${theme.palette.primary.main}`,
+      borderLeft: `2px solid ${theme.palette.primary.dark}`,
     },
     noOverflow: {
       textOverflow: "ellipsis",
       overflow: "hidden",
-      [theme.breakpoints.up("md")]: {
-        maxWidth: 220,
-      },
+      maxWidth: 240,
+    },
+    label: {
+      fontWeight: 500,
+      fontSize: "0.83rem",
     },
   })
 );
@@ -37,14 +45,30 @@ interface Props {
   data: any;
 }
 
+const BorderLinearProgress = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      height: 6,
+      borderRadius: 5,
+    },
+    colorPrimary: {
+      backgroundColor: theme.palette.grey[900],
+    },
+    bar: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.primary.dark,
+    },
+  })
+)(LinearProgress);
+
 export default function TopFollowing({ data }: Props) {
   const classes = useStyles();
   // TODO: Add proper Loader
   if (!data) {
-    return <h4>Loading</h4>;
+    return <Loading />;
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={8}>
       <Grid container>
         <Grid item container direction="column" xs={8}>
           <Grid item>
@@ -63,9 +87,9 @@ export default function TopFollowing({ data }: Props) {
             </List>
           </Grid>
           <Grid item style={{ padding: "12px" }}>
-            <LinearProgress
+            <BorderLinearProgress
               variant="determinate"
-              value={data.repositoriesContributedTo.totalCount % 100}
+              value={(data.repositoriesContributedTo.totalCount % 100) * 10}
             />
           </Grid>
         </Grid>
@@ -78,9 +102,11 @@ export default function TopFollowing({ data }: Props) {
           justifyContent="center"
         >
           <Grid item>
-            <CommitsIcon fontSize="large" />
+            <CommitsIcon fontSize="large" style={{ color: "green" }} />
           </Grid>
-          <Grid item>{data.repositories.totalCount}</Grid>
+          <Grid item className={classes.label}>
+            {data.repositories.totalCount + " repos"}
+          </Grid>
         </Grid>
       </Grid>
     </Paper>

@@ -13,6 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import Tooltip from "@material-ui/core/Tooltip";
+
 import {
   makeStyles,
   useTheme,
@@ -23,6 +24,7 @@ import {
 // Icons
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationsRounded from "@material-ui/icons/NotificationsRounded";
+import CalendarToday from "@material-ui/icons/CalendarToday";
 // Custom Components
 import DrawerTabs from "./DrawerTabs";
 
@@ -44,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     appBar: {
+      backgroundColor: theme.palette.background.default,
       [theme.breakpoints.up("md")]: {
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
@@ -73,13 +76,12 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
-
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: alpha(theme.palette.common.black, 0.15),
+      backgroundColor: alpha(theme.palette.common.white, 0.04),
       "&:hover": {
-        backgroundColor: alpha(theme.palette.common.black, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.04),
       },
       marginLeft: 0,
       width: "100%",
@@ -99,6 +101,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inputRoot: {
       color: "inherit",
+    },
+    userGreet: {
+      fontSize: "1.125rem",
+      marginBottom: "-4px",
+    },
+    date: {
+      color: theme.palette.secondary.dark,
+      fontWeight: 600,
+      display: "flex",
+      alignItems: "center",
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
@@ -130,10 +142,10 @@ export default function ResponsiveDrawer({ children }: LayoutProps) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        // position="fixed"
         className={classes.appBar}
         color="inherit"
-        elevation={0}
+        elevation={1}
       >
         <Toolbar>
           <IconButton
@@ -145,18 +157,23 @@ export default function ResponsiveDrawer({ children }: LayoutProps) {
           >
             <MenuIcon />
           </IconButton>
-          <div className={classes.flexCol}>
-            <Typography variant="h6" noWrap>
-              {"Hello " + userFullName}
-            </Typography>
-            <Typography variant="caption" noWrap>
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-              })}
-            </Typography>
-          </div>
+          <Hidden xsDown>
+            <div className={classes.flexCol}>
+              <Typography variant="h6" noWrap className={classes.userGreet}>
+                {"Hello " + userFullName}
+              </Typography>
+              <Typography variant="caption" noWrap className={classes.date}>
+                <CalendarToday
+                  fontSize="inherit"
+                  style={{ margin: "-1px 4px 0px 0px" }}
+                />
+                {new Date().toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Typography>
+            </div>
+          </Hidden>
           <Tooltip title="Presentation only">
             <div className={classes.search}>
               <div className={classes.searchIcon}>

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
     },
     container: {
-      padding: theme.spacing(2, 4),
+      padding: theme.spacing(2),
     },
     semibold: {
       fontWeight: 500,
@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       marginTop: theme.spacing(1.25),
+    },
+    avatar: {
+      height: theme.spacing(6),
+      width: theme.spacing(6),
+      backgroundColor: "rgb(255, 187, 40)",
+      marginBottom: theme.spacing(1),
     },
   })
 );
@@ -41,7 +47,7 @@ export default function TopFollowing() {
       className={classes.container}
     >
       <Grid item>
-        <Avatar>
+        <Avatar className={classes.avatar} variant="circular">
           <StarsRounded />
         </Avatar>
       </Grid>
@@ -59,8 +65,7 @@ export default function TopFollowing() {
         <Button
           color="primary"
           startIcon={<AddIcon />}
-          variant="outlined"
-          size="small"
+          variant="contained"
           className={classes.button}
         >
           Add more

@@ -13,11 +13,14 @@ import { useSelector } from "react-redux";
 // moment.js for date formatting (easily)
 import moment from "moment";
 
+import Loading from "@/components/Loader";
+
 interface Props {
   filter: {
     type: "yearly" | "monthly" | "none";
     value: number;
   };
+  show: boolean;
 }
 
 interface Data {
@@ -27,14 +30,14 @@ interface Data {
   }[];
 }
 
-export default function ContributionsChart({ filter }: Props) {
+export default function ContributionsChart({ filter, show }: Props) {
   const data: Array<Data> = useSelector(
     (state: any) =>
       state.user.contributionsCollection.contributionCalendar.weeks
   );
 
   if (!data) {
-    return <h4>Loading...</h4>;
+    return <Loading />;
   }
 
   const contributionData: Array<any> = [];
@@ -66,17 +69,17 @@ export default function ContributionsChart({ filter }: Props) {
         height={300}
         data={contributionData}
         margin={{
-          top: 0,
-          right: 60,
-          left: 0,
-          bottom: 0,
+          top: 10,
+          right: 40,
+          left: -20,
+          bottom: 30,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        {show && <CartesianGrid strokeDasharray="3 3" />}
         <XAxis dataKey="date" tickFormatter={formatXAxis} />
         <YAxis />
         <Tooltip />
-        <Line type="monotone" dataKey="contributionCount" stroke="#8884d8" />
+        <Line type="monotone" dataKey="contributionCount" stroke="#BB86FC" />
       </LineChart>
     </ResponsiveContainer>
   );

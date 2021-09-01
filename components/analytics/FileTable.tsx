@@ -4,6 +4,7 @@ import { repositoryFilesQuery } from "@/redux/queries";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import Launch from "@material-ui/icons/Launch";
+import Loading from "@/components/Loader";
 
 const fetcher = async (url: string, query: string, PAT: string) => {
   const data = await fetch(url, {
@@ -16,17 +17,16 @@ const fetcher = async (url: string, query: string, PAT: string) => {
   return data.json();
 };
 
-export default function FileTable() {
+export default function FileTable({ repo }: any) {
   const props = useSelector((state: any) => ({
     PAT: state.PAT,
     userName: state.userName,
-    repoName: state.user.repositories.nodes[0]?.name,
   }));
-  const query = repositoryFilesQuery(props.userName, props.repoName);
+  const query = repositoryFilesQuery(props.userName, repo);
   const { data } = useSWR(["/api/github-v4", query, props.PAT], fetcher);
 
-  if (!data) {
-    return <h4>Loading...</h4>;
+  if (!data || !repo) {
+    return <Loading />;
   }
 
   const RowData = data.repository.object.entries;
@@ -54,13 +54,14 @@ export default function FileTable() {
   }));
 
   return (
-    <div style={{ height: 300, width: "100%" }}>
+    <div style={{ height: 250, width: "100%" }}>
       <div style={{ display: "flex", height: "100%" }}>
         <div style={{ flexGrow: 1 }}>
           <DataGrid
             rows={rows}
             columns={columns}
-            rowsPerPageOptions={[2, 4, 25]}
+            rowsPerPageOptions={[2]}
+            pageSize={2}
           />
         </div>
       </div>

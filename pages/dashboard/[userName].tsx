@@ -10,7 +10,11 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
+import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
+import Divider from "@material-ui/core/Divider";
+import Switch from "@material-ui/core/Switch";
 // Custom Components
 import TopFollowing from "@/components/dashboard/TopFollowing";
 import UserRepos from "@/components/dashboard/UserRepos";
@@ -18,8 +22,11 @@ import ComponentPanel from "@/components/dashboard/ComponentPanel";
 import RepoPRchart from "@/components/dashboard/RepoPRchart";
 import PieChartJS from "@/components/dashboard/PieChart";
 import PieChartLabel from "@/components/dashboard/PieChartLabel";
+import Loading from "@/components/Loader";
 // Layout Component
 import Layout from "@/components/Layout";
+// Icons
+import HelpIcon from "@material-ui/icons/Help";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,15 +36,17 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       textAlign: "center",
       color: theme.palette.text.secondary,
-      border: `1px solid ${theme.palette.primary.main}`,
+      height: "240px",
+      padding: theme.spacing(3, 2),
     },
     headBar: {
       padding: theme.spacing(1, 2),
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: theme.palette.secondary.dark,
       fontWeight: 600,
+      borderRadius: "4px",
     },
     repoBox: {
-      maxHeight: 160,
+      maxHeight: 260,
       overflowY: "scroll",
       scrollbarWidth: "none", // Firefox
       "&::-webkit-scrollbar": {
@@ -45,13 +54,21 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     lineChartContainer: {
-      height: "200px",
+      height: "300px",
+      padding: theme.spacing(1, 4, 1, 1),
     },
     pieChartContainer: {
-      height: "160px",
+      height: "240px",
       textAlign: "center",
-      padding: theme.spacing(1),
-      border: `1px solid ${theme.palette.primary.main}`,
+      padding: theme.spacing(3, 2),
+    },
+    flex: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    divider: {
+      margin: "4px 4px 4px 24px",
     },
   })
 );
@@ -59,9 +76,14 @@ const useStyles = makeStyles((theme: Theme) =>
 function Dashboard() {
   const classes = useStyles();
   const data = useStore().getState();
+  const [showGrid, setShowGrid] = React.useState(true);
+
+  const handleChange = (_event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowGrid(!showGrid);
+  };
 
   if (!data) {
-    return <h3>Loading</h3>;
+    return <Loading />;
   }
 
   return (
@@ -72,10 +94,37 @@ function Dashboard() {
             <TopFollowing data={user} />
           </Grid>
         ))}
-        {/* next section */}
         <Grid item xs={12} md={8}>
           <Paper className={classes.lineChartContainer}>
-            <RepoPRchart data={data.user.repositories.nodes} />
+            <div className={classes.flex}>
+              <Typography variant="subtitle2" style={{ marginLeft: "30px" }}>
+                GITHUB REPOSITORY PULL REQUESTS
+              </Typography>
+              <div style={{ flexGrow: 1 }} />
+              <div className={classes.flex}>
+                <Chip
+                  label="All Repositories"
+                  size="small"
+                  color="secondary"
+                  variant="outlined"
+                  style={{ marginRight: "12px" }}
+                />
+                <Tooltip title="toggle grid">
+                  <Switch
+                    checked={showGrid}
+                    onChange={handleChange}
+                    size="small"
+                  />
+                </Tooltip>
+                <Tooltip title="user pull resuests per repo">
+                  <IconButton size="small">
+                    <HelpIcon />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            </div>
+            <Divider className={classes.divider} />
+            <RepoPRchart data={data.user.repositories.nodes} show={showGrid} />
           </Paper>
         </Grid>
         {/* next section */}

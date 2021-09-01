@@ -23,15 +23,15 @@ export default function RadarChartTS() {
 
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={RadarData}>
+      <RadarChart cx="50%" cy="45%" outerRadius="80%" data={RadarData}>
         <PolarGrid />
         <PolarAngleAxis dataKey="name" />
         <PolarRadiusAxis />
         <Radar
           name="User"
           dataKey="commitComments"
-          stroke="#8884d8"
-          fill="#8884d8"
+          stroke="#BB86FC"
+          fill="#BB86FC"
           fillOpacity={0.6}
         />
       </RadarChart>

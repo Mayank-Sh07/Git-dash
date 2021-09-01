@@ -8,8 +8,14 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-// Cstom Component
+import Switch from "@material-ui/core/Switch";
+import Chip from "@material-ui/core/Chip";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
+// Custom Component
 import ContributionsChart from "./ContributionsChart";
+// Icon
+import HelpIcon from "@material-ui/icons/Help";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,13 +28,21 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     container: {
-      height: "360px",
-      border: `1px solid ${theme.palette.primary.main}`,
+      height: "400px",
+      borderBottom: `2px solid ${theme.palette.primary.dark}`,
     },
     total: {
       padding: theme.spacing(1, 2),
       paddingBottom: "0px",
       margin: theme.spacing(1),
+    },
+    flex: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    padded: {
+      padding: theme.spacing(1, 2, 0),
     },
   })
 );
@@ -43,6 +57,11 @@ export default function MultilineTextFields() {
   );
   const [ftype, setFilterType] = React.useState<FTYPE>("yearly");
   const [fval, setFilterValue] = React.useState(2020);
+  const [showGrid, setShowGrid] = React.useState(true);
+
+  const handleChange = (_event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowGrid(!showGrid);
+  };
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.value === "yearly" ? setFilterValue(2020) : setFilterValue(8);
@@ -56,53 +75,81 @@ export default function MultilineTextFields() {
 
   return (
     <Paper className={classes.container}>
-      <div className={classes.root}>
-        <div>
-          <TextField
-            select
-            label="Filter By"
-            value={ftype}
-            variant="outlined"
-            size="small"
-            onChange={handleTypeChange}
-          >
-            {FilterTypes.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <div>
-          <TextField
-            select
-            label="Filter Value"
-            value={fval}
-            variant="outlined"
-            size="small"
-            onChange={handleValueChange}
-          >
-            {ftype === "yearly"
-              ? years.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))
-              : months.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-          </TextField>
-        </div>
-        <div style={{ flexGrow: 1 }} />
-        <Paper variant="outlined" className={classes.total}>
-          <Typography variant="button">
-            {"total contributions: " + totalContibutions}
+      <div className={classes.padded}>
+        <div className={classes.flex}>
+          <Typography variant="subtitle2">
+            GITHUB REPOSITORY PULL REQUESTS
           </Typography>
-        </Paper>
+          <div style={{ flexGrow: 1 }} />
+          <div className={classes.flex}>
+            <Chip
+              label="All Repositories"
+              size="small"
+              color="secondary"
+              variant="outlined"
+              style={{ marginRight: "12px" }}
+            />
+            <Tooltip title="toggle grid">
+              <Switch checked={showGrid} onChange={handleChange} size="small" />
+            </Tooltip>
+            <Tooltip title="user pull resuests per repo">
+              <IconButton size="small">
+                <HelpIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </div>
+        <div className={classes.root}>
+          <div>
+            <TextField
+              select
+              label="Filter By"
+              value={ftype}
+              variant="outlined"
+              size="small"
+              onChange={handleTypeChange}
+            >
+              {FilterTypes.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+          <div>
+            <TextField
+              select
+              label="Filter Value"
+              value={fval}
+              variant="outlined"
+              size="small"
+              onChange={handleValueChange}
+            >
+              {ftype === "yearly"
+                ? years.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))
+                : months.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+            </TextField>
+          </div>
+          <div style={{ flexGrow: 1 }} />
+          <Paper variant="outlined" className={classes.total}>
+            <Typography variant="button">
+              {"total contributions: " + totalContibutions}
+            </Typography>
+          </Paper>
+        </div>
       </div>
-      <ContributionsChart filter={{ type: ftype, value: fval }} />
+      <ContributionsChart
+        filter={{ type: ftype, value: fval }}
+        show={showGrid}
+      />
     </Paper>
   );
 }

@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2),
       backgroundColor: theme.palette.common.black,
     },
+    logoIcon: {
+      color: theme.palette.primary.main,
+    },
   })
 );
 
@@ -117,7 +120,7 @@ export default function ResponsiveDrawer() {
     <>
       <div>
         <div className={classes.toolbar}>
-          <Logo fontSize="large" />
+          <Logo fontSize="large" className={classes.logoIcon} />
           <Typography variant="h5" className={classes.logo}>
             Git Dash
           </Typography>
