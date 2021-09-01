@@ -1,7 +1,6 @@
 // React and Next
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 // Redux
 import { useSelector } from "react-redux";
 // Material UI
@@ -66,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ResponsiveDrawer() {
   const classes = useStyles();
-  const userData = useSelector((state) => ({
+  const userData = useSelector((state: any) => ({
     name: state?.userName,
     avatarUrl: state.user?.avatarUrl,
     email: state.user?.email,
