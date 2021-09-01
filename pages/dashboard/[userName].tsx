@@ -10,6 +10,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
 // Custom Components
 import TopFollowing from "@/components/dashboard/TopFollowing";
 import UserRepos from "@/components/dashboard/UserRepos";
@@ -28,10 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       textAlign: "center",
       color: theme.palette.text.secondary,
+      border: `1px solid ${theme.palette.primary.main}`,
     },
     headBar: {
       padding: theme.spacing(1, 2),
-      backgroundColor: theme.palette.grey[900],
+      backgroundColor: theme.palette.primary.dark,
       fontWeight: 600,
     },
     repoBox: {
@@ -49,6 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "160px",
       textAlign: "center",
       padding: theme.spacing(1),
+      border: `1px solid ${theme.palette.primary.main}`,
     },
   })
 );
@@ -78,9 +81,11 @@ function Dashboard() {
         {/* next section */}
         <Grid item xs={6} md={4}>
           <Paper>
-            <Typography className={classes.headBar}>
-              Top Repositories
-            </Typography>
+            <Tooltip title="scrollable">
+              <Typography className={classes.headBar}>
+                Top Repositories
+              </Typography>
+            </Tooltip>
             <Paper className={classes.repoBox} variant="outlined">
               {data.user.repositories.nodes.map((repo: any) => (
                 <UserRepos data={repo} key={repo.name} />

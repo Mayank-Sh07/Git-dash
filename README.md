@@ -3,17 +3,17 @@
 A dashboard for viewing Github data.
 
 > ## Setup
->
-> [Creating PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+[Creating PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 > ## Roadmap
 
 - [x] Next-JS app with MUI & Typescript
 - [x] Minimal external dependencies
 - [x] Design reference [UI](https://dribbble.com/shots/15545195-Integrator-dashboard-dark)
-- [ ] Adding Redux for State management
-- [ ] Tab with paginated Table
-- [ ] Data visualization using Recharts
+- [x] Adding Redux for State management
+- [x] Dashboard-Tab with paginated Table (analytics page)
+- [x] Data visualization using Recharts
 - [ ] Testing using Cypress
       <br>
 

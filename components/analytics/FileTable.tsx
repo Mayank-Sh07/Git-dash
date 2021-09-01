@@ -33,7 +33,7 @@ export default function FileTable() {
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "File Name", flex: 0.6 },
-    { field: "byteSize", headerName: "Size (Bbytes)", flex: 0.3 },
+    { field: "byteSize", headerName: "Size (bytes)", flex: 0.3 },
     {
       field: "commitUrl",
       headerName: "Access",

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     semibold: {
       fontWeight: 500,
+      marginTop: "8px",
     },
     button: {
       marginTop: theme.spacing(1.25),

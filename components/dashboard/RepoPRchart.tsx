@@ -17,7 +17,7 @@ interface GraphData {
 export default function RepoPRchart({ data }: any) {
   const PR_DATA: Array<GraphData> = data.map((node: any) => ({
     name: node.name,
-    pr: node.pullRequests?.totalCount,
+    pullRequests: node.pullRequests?.totalCount,
   }));
 
   return (
@@ -45,7 +45,7 @@ export default function RepoPRchart({ data }: any) {
         <Tooltip />
         <Area
           type="monotone"
-          dataKey="pr"
+          dataKey="pullRequests"
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"

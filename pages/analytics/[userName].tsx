@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chartContainer: {
       height: "300px",
+      border: `1px solid ${theme.palette.primary.main}`,
     },
   })
 );

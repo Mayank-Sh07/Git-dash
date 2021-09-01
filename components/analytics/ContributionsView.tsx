@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       height: "360px",
+      border: `1px solid ${theme.palette.primary.main}`,
     },
     total: {
       padding: theme.spacing(1, 2),

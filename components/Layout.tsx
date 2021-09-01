@@ -12,7 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
-import DrawerTabs from "./DrawerTabs";
+import Tooltip from "@material-ui/core/Tooltip";
 import {
   makeStyles,
   useTheme,
@@ -23,6 +23,8 @@ import {
 // Icons
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationsRounded from "@material-ui/icons/NotificationsRounded";
+// Custom Components
+import DrawerTabs from "./DrawerTabs";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -155,22 +157,26 @@ export default function ResponsiveDrawer({ children }: LayoutProps) {
               })}
             </Typography>
           </div>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <Tooltip title="Presentation only">
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
-          <IconButton className={classes.menuIcon}>
-            <NotificationsRounded />
-          </IconButton>
+          </Tooltip>
+          <Tooltip title="Presentation only">
+            <IconButton className={classes.menuIcon}>
+              <NotificationsRounded />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

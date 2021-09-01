@@ -17,6 +17,7 @@ import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
 // Icons
 import Logo from "@material-ui/icons/SportsVolleyball";
 import GithubIcon from "@material-ui/icons/GitHub";
@@ -170,16 +171,17 @@ export default function ResponsiveDrawer() {
           }
         >
           {secondaryNavs.map(({ label, index, icon }) => (
-            <ListItem
-              key={label}
-              button
-              dense
-              selected={selectedIndex === index}
-              onClick={(event) => handleListItemClick(event, index)}
-            >
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
+            <Tooltip title="Inactive Nav | for presentation only" key={label}>
+              <ListItem
+                button
+                dense
+                selected={selectedIndex === index}
+                onClick={(event) => handleListItemClick(event, index)}
+              >
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={label} />
+              </ListItem>
+            </Tooltip>
           ))}
         </List>
       </div>
@@ -200,7 +202,10 @@ export default function ResponsiveDrawer() {
                   alt={userData.name}
                 />
               </ListItemAvatar>
-              <ListItemText primary={userData.name} />
+              <ListItemText
+                primary={userData.name}
+                primaryTypographyProps={{ variant: "caption" }}
+              />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="options" size="small">
                   <OptionsIcon />

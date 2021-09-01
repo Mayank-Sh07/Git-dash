@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       textAlign: "center",
       color: theme.palette.text.secondary,
+      border: `1px solid ${theme.palette.primary.main}`,
     },
     noOverflow: {
       textOverflow: "ellipsis",
