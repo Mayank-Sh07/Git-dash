@@ -36,13 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
     },
     drawer: {
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         width: drawerWidth,
         flexShrink: 0,
       },
     },
     appBar: {
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuButton: {
       marginRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("md")]: {
         display: "none",
       },
     },
@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ResponsiveDrawer({ children }: LayoutProps) {
   const classes = useStyles();
   const theme = useTheme();
-  const userFullName = useSelector((state) => state?.userName);
+  const userFullName = useSelector((state: any) => state?.userName);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -174,7 +174,7 @@ export default function ResponsiveDrawer({ children }: LayoutProps) {
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
+        <Hidden mdUp implementation="css">
           <Drawer
             variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}
@@ -190,7 +190,7 @@ export default function ResponsiveDrawer({ children }: LayoutProps) {
             <DrawerTabs />
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,

@@ -1,11 +1,13 @@
+// React
 import React from "react";
+// Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
+// Icons
 import LabelIcon from "@material-ui/icons/Label";
 
 const useStyles = makeStyles((theme: Theme) =>

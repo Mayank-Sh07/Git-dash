@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
     repoBox: {
       borderRadius: theme.spacing(1),
       margin: theme.spacing(2, 0),
-      backgroundColor: theme.palette.grey[100],
+      backgroundColor: theme.palette.common.black,
       maxWidth: "220px",
     },
     label: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
     infoBox: {
       padding: theme.spacing(2),
       marginBottom: theme.spacing(2),
-      backgroundColor: theme.palette.grey[100],
+      backgroundColor: theme.palette.common.black,
     },
   })
 );

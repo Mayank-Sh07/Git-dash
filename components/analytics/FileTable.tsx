@@ -17,7 +17,7 @@ const fetcher = async (url: string, query: string, PAT: string) => {
 };
 
 export default function FileTable() {
-  const props = useSelector((state) => ({
+  const props = useSelector((state: any) => ({
     PAT: state.PAT,
     userName: state.userName,
     repoName: state.user.repositories.nodes[0]?.name,

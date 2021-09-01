@@ -14,7 +14,7 @@ interface Data {
 }
 
 export default function RadarChartTS() {
-  const RadarData: Array<Data> = useSelector((state) =>
+  const RadarData: Array<Data> = useSelector((state: any) =>
     state.user.repositories.nodes.map((node: any) => ({
       name: node.name,
       commitComments: node.commitComments.totalCount,

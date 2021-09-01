@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     headBar: {
       padding: theme.spacing(1, 2),
-      backgroundColor: theme.palette.grey[100],
+      backgroundColor: theme.palette.grey[900],
       fontWeight: 600,
     },
     repoBox: {
@@ -65,18 +65,18 @@ function Dashboard() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         {data.user.following.nodes.map((user: any, indx: any) => (
-          <Grid item xs={4} key={indx}>
+          <Grid item xs={12} md={4} key={indx}>
             <TopFollowing data={user} />
           </Grid>
         ))}
         {/* next section */}
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <Paper className={classes.lineChartContainer}>
             <RepoPRchart data={data.user.repositories.nodes} />
           </Paper>
         </Grid>
         {/* next section */}
-        <Grid item xs={4}>
+        <Grid item xs={6} md={4}>
           <Paper>
             <Typography className={classes.headBar}>
               Top Repositories
@@ -89,19 +89,20 @@ function Dashboard() {
           </Paper>
         </Grid>
         {/* next section */}
-        <Grid item xs={4}>
+        <Grid item xs={6} md={4}>
+          <Paper className={classes.paper}>
+            <ComponentPanel />
+          </Paper>
+        </Grid>
+        {/* next section */}
+        <Grid item xs={6} md={4}>
           <Paper className={classes.paper}>
             <PieChartLabel />
           </Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6} md={4}>
           <Paper className={classes.pieChartContainer}>
             <PieChartJS />
-          </Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>
-            <ComponentPanel />
           </Paper>
         </Grid>
       </Grid>

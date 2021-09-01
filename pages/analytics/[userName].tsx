@@ -46,12 +46,12 @@ function Dashboard() {
         <Grid item xs={12}>
           <ContributionsView />
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={12} md={7}>
           <Paper>
             <FileTable />
           </Paper>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={12} md={5}>
           <Paper className={classes.chartContainer}>
             <RadarChart />
           </Paper>

@@ -1,3 +1,4 @@
+// Recharts for graphs
 import {
   LineChart,
   Line,
@@ -7,7 +8,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+// Getting State from Redux instead of prop-drilling
 import { useSelector } from "react-redux";
+// moment.js for date formatting (easily)
 import moment from "moment";
 
 interface Props {
@@ -26,14 +29,15 @@ interface Data {
 
 export default function ContributionsChart({ filter }: Props) {
   const data: Array<Data> = useSelector(
-    (state) => state.user.contributionsCollection.contributionCalendar.weeks
+    (state: any) =>
+      state.user.contributionsCollection.contributionCalendar.weeks
   );
 
   if (!data) {
     return <h4>Loading...</h4>;
   }
 
-  const contributionData = [];
+  const contributionData: Array<any> = [];
   data.forEach((obj) => {
     obj.contributionDays.forEach((day) => {
       if (
@@ -51,7 +55,7 @@ export default function ContributionsChart({ filter }: Props) {
   });
 
   function formatXAxis(tickItem: any) {
-    // If using moment.js
+    // using moment.js
     return moment(tickItem).format("MMM Do YY");
   }
 

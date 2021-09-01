@@ -1,3 +1,4 @@
+// Recharts for graphs
 import {
   AreaChart,
   Area,
@@ -12,10 +13,9 @@ interface GraphData {
   name: string;
   pr: number;
 }
-[];
 
 export default function RepoPRchart({ data }: any) {
-  const PR_DATA: GraphData = data.map((node: any) => ({
+  const PR_DATA: Array<GraphData> = data.map((node: any) => ({
     name: node.name,
     pr: node.pullRequests?.totalCount,
   }));

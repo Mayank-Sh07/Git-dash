@@ -1,11 +1,15 @@
+// React and Next
 import React from "react";
+// Redux for state
+import { useSelector } from "react-redux";
+// Material-ui
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+// Cstom Component
 import ContributionsChart from "./ContributionsChart";
-import { useSelector } from "react-redux";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +37,7 @@ type FTYPE = "yearly" | "monthly";
 export default function MultilineTextFields() {
   const classes = useStyles();
   const totalContibutions = useSelector(
-    (state) =>
+    (state: any) =>
       state.user.contributionsCollection.contributionCalendar.totalContributions
   );
   const [ftype, setFilterType] = React.useState<FTYPE>("yearly");

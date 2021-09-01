@@ -25,7 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
     noOverflow: {
       textOverflow: "ellipsis",
       overflow: "hidden",
-      maxWidth: 220,
+      [theme.breakpoints.up("md")]: {
+        maxWidth: 220,
+      },
     },
   })
 );

@@ -1,9 +1,12 @@
+// Recharts for graphs
 import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
-import Typography from "@material-ui/core/Typography";
+// Redux
 import { useSelector } from "react-redux";
+// Materual UI
+import Typography from "@material-ui/core/Typography";
 
 export default function PieChartJS() {
-  const data = useSelector((state) => {
+  const data = useSelector((state: any) => {
     return [
       {
         name: "Repositories Owned",
