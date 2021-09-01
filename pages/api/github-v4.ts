@@ -4,13 +4,15 @@ import { GraphQLClient } from "graphql-request";
 const endpoint = "https://api.github.com/graphql";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  const { query, PAT } = req.body;
+
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {
-      Authorization: "bearer " + process.env.NEXT_PUBLIC_GITHUB_PAT,
+      Authorization: "bearer " + PAT,
       ContentType: "application/json",
     },
     mode: "cors",
   });
-  const data = await graphQLClient.request(req.body);
+  const data = await graphQLClient.request(query);
   res.status(200).json({ ...data });
 };

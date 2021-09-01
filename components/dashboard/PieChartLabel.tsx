@@ -5,9 +5,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
-import SendIcon from "@material-ui/icons/Send";
+
+import LabelIcon from "@material-ui/icons/Label";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,27 +30,27 @@ export default function NestedList() {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader component="div">Pie chart Legend</ListSubheader>
+        <ListSubheader component="div">PIE CHART LEGEND</ListSubheader>
       }
       className={classes.root}
     >
       <ListItem button>
         <ListItemIcon>
-          <SendIcon />
+          <LabelIcon style={{ color: "#0088FE" }} />
         </ListItemIcon>
-        <ListItemText primary="Sent mail" />
+        <ListItemText primary="Repositories Owned" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
-          <DraftsIcon />
+          <LabelIcon style={{ color: "#00C49F" }} />
         </ListItemIcon>
-        <ListItemText primary="Drafts" />
+        <ListItemText primary="Repositories Contributed" />
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <InboxIcon />
+          <LabelIcon style={{ color: "#FFBB28" }} />
         </ListItemIcon>
-        <ListItemText primary="Inbox" />
+        <ListItemText primary="Total Pull Requests" />
       </ListItem>
     </List>
   );

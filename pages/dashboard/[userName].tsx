@@ -9,6 +9,7 @@ import { useStore } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 // Custom Components
 import TopFollowing from "@/components/dashboard/TopFollowing";
 import UserRepos from "@/components/dashboard/UserRepos";
@@ -18,7 +19,6 @@ import PieChartJS from "@/components/dashboard/PieChart";
 import PieChartLabel from "@/components/dashboard/PieChartLabel";
 // Layout Component
 import Layout from "@/components/Layout";
-import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -115,11 +115,11 @@ export default Dashboard;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Prepare GQL query
-  const { userName } = context.query;
+  const { userName, PAT } = context.query;
   const query = dashboardQuery(String(userName));
 
-  // initialize empty redux-store on server
-  const reduxStore = initializeStore({});
+  // initialize redux-store on server
+  const reduxStore = initializeStore({ userName, PAT });
   const { dispatch } = reduxStore;
 
   // Fetch data from /api/github-v4 endpoint
@@ -128,7 +128,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(query),
+    body: JSON.stringify({ query, userName, PAT }),
   });
   if (res.ok) {
     const data = await res.json();
@@ -138,6 +138,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     // Propogate server store data to cilent store
-    props: { initialReduxState: reduxStore.getState() },
+    props: {
+      initialReduxState: reduxStore.getState(),
+    },
   };
 };

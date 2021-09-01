@@ -20,7 +20,6 @@ export default function RepoPRchart({ data }: any) {
     pr: node.pullRequests?.totalCount,
   }));
 
-  console.log(PR_DATA);
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart

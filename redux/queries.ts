@@ -3,6 +3,7 @@ export function dashboardQuery(githubUserName: string): string {
   return `
   {
     user(login: "${githubUserName}") {
+      name
       bio
       avatarUrl
       createdAt

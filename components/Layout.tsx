@@ -1,5 +1,7 @@
 // React and Next
 import React from "react";
+// Redux
+import { useSelector } from "react-redux";
 // Material UI
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -115,6 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ResponsiveDrawer({ children }: LayoutProps) {
   const classes = useStyles();
   const theme = useTheme();
+  const userFullName = useSelector((state) => state.user.name);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -142,7 +145,7 @@ export default function ResponsiveDrawer({ children }: LayoutProps) {
           </IconButton>
           <div className={classes.flexCol}>
             <Typography variant="h6" noWrap>
-              Hello User
+              {"Hello " + userFullName}
             </Typography>
             <Typography variant="caption" noWrap>
               {new Date().toLocaleDateString("en-US", {

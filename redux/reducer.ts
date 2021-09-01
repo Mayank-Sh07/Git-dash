@@ -1,4 +1,4 @@
-const initialState = {};
+export const initialState = {};
 
 export const reducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -6,6 +6,11 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case "SET_LOGIN_DATA":
+      return {
+        enteredUserName: action.payload.userName,
+        PAT: action.payload.PAT,
       };
     default:
       return state;

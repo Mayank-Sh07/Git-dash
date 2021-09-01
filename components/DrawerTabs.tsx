@@ -1,5 +1,9 @@
 // React and Next
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+// Redux
+import { useSelector } from "react-redux";
 // Material UI
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -22,7 +26,6 @@ import AnalyticsIcon from "@material-ui/icons/AssessmentRounded";
 import ReportsIcon from "@material-ui/icons/AssignmentRounded";
 import SettingsIcon from "@material-ui/icons/SettingsRounded";
 import SwapIcon from "@material-ui/icons/UnfoldMoreRounded";
-import UserIcon from "@material-ui/icons/AccountCircleRounded";
 import OptionsIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: theme.spacing(1),
       margin: theme.spacing(2, 0),
       backgroundColor: theme.palette.grey[100],
+      maxWidth: "220px",
     },
     label: {
       fontWeight: 600,
@@ -62,7 +66,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ResponsiveDrawer() {
   const classes = useStyles();
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const userData = useSelector((state) => ({
+    name: state.user.name,
+    avatarUrl: state.user.avatarUrl,
+    email: state.user.email,
+    PAT: state.PAT,
+  }));
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const state = useSelector((state) => state);
+  console.log(state);
+  const router = useRouter();
+  console.log(router.query);
 
   // set sidebar tab to selected
   const handleListItemClick = (
@@ -71,6 +85,38 @@ export default function ResponsiveDrawer() {
   ) => {
     setSelectedIndex(index);
   };
+
+  // Navs
+  const primaryNavs = [
+    {
+      label: "Dashboard",
+      index: 0,
+      icon: <DashboardIcon />,
+      href: `/dashboard/${encodeURIComponent(
+        userData.name
+      )}/?PAT=${encodeURIComponent(userData.PAT)}`,
+    },
+    {
+      label: "Analytics",
+      index: 1,
+      icon: <AnalyticsIcon />,
+      href: `/analytics/${encodeURIComponent(
+        userData.name
+      )}/?PAT=${encodeURIComponent(userData.PAT)}`,
+    },
+  ];
+  const secondaryNavs = [
+    {
+      label: "Reports",
+      index: 2,
+      icon: <ReportsIcon />,
+    },
+    {
+      label: "Settings",
+      index: 3,
+      icon: <SettingsIcon />,
+    },
+  ];
 
   return (
     <>
@@ -90,9 +136,15 @@ export default function ResponsiveDrawer() {
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary="Photos"
-              secondary="Jan 9, 2014"
-              primaryTypographyProps={{ className: classes.label }}
+              primary={userData.name}
+              secondary={
+                !!userData.email ? userData.email : "e-mail unavailable"
+              }
+              primaryTypographyProps={{
+                className: classes.label,
+                noWrap: true,
+              }}
+              secondaryTypographyProps={{ noWrap: true }}
             />
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="swap" size="small">
@@ -100,17 +152,19 @@ export default function ResponsiveDrawer() {
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
-          {primaryNavs.map(({ label, index, icon }) => (
-            <ListItem
-              key={label}
-              dense
-              button
-              selected={selectedIndex === index}
-              onClick={(event) => handleListItemClick(event, index)}
-            >
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
+          {primaryNavs.map(({ label, index, icon, href }) => (
+            <Link href={href}>
+              <ListItem
+                key={label}
+                dense
+                button
+                selected={selectedIndex === index}
+                onClick={(event) => handleListItemClick(event, index)}
+              >
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={label} />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
@@ -146,11 +200,13 @@ export default function ResponsiveDrawer() {
           <List>
             <ListItem>
               <ListItemAvatar>
-                <Avatar variant="circular">
-                  <UserIcon />
-                </Avatar>
+                <Avatar
+                  variant="circular"
+                  src={userData.avatarUrl}
+                  alt={userData.name}
+                />
               </ListItemAvatar>
-              <ListItemText primary="User name" />
+              <ListItemText primary={userData.name} />
               <ListItemSecondaryAction>
                 <IconButton edge="end" aria-label="options" size="small">
                   <OptionsIcon />
@@ -163,29 +219,3 @@ export default function ResponsiveDrawer() {
     </>
   );
 }
-
-// Navs
-const primaryNavs = [
-  {
-    label: "Dashboard",
-    index: 0,
-    icon: <DashboardIcon />,
-  },
-  {
-    label: "Analytics",
-    index: 1,
-    icon: <AnalyticsIcon />,
-  },
-];
-const secondaryNavs = [
-  {
-    label: "Reports",
-    index: 2,
-    icon: <ReportsIcon />,
-  },
-  {
-    label: "Settings",
-    index: 3,
-    icon: <SettingsIcon />,
-  },
-];
