@@ -15,6 +15,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import Divider from "@material-ui/core/Divider";
 import Switch from "@material-ui/core/Switch";
+import Hidden from "@material-ui/core/Hidden";
+
 // Custom Components
 import TopFollowing from "@/components/dashboard/TopFollowing";
 import UserRepos from "@/components/dashboard/UserRepos";
@@ -32,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      padding: theme.spacing(4),
+      [theme.breakpoints.only("xs")]: {
+        padding: theme.spacing(1),
+      },
     },
     paper: {
       textAlign: "center",
@@ -97,9 +103,11 @@ function Dashboard() {
         <Grid item xs={12} md={8}>
           <Paper className={classes.lineChartContainer}>
             <div className={classes.flex}>
-              <Typography variant="subtitle2" style={{ marginLeft: "30px" }}>
-                GITHUB REPOSITORY PULL REQUESTS
-              </Typography>
+              <Hidden xsDown>
+                <Typography variant="subtitle2" style={{ marginLeft: "30px" }}>
+                  GITHUB REPOSITORY PULL REQUESTS
+                </Typography>
+              </Hidden>
               <div style={{ flexGrow: 1 }} />
               <div className={classes.flex}>
                 <Chip
@@ -128,7 +136,7 @@ function Dashboard() {
           </Paper>
         </Grid>
         {/* next section */}
-        <Grid item xs={6} md={4}>
+        <Grid item xs={12} md={4}>
           <Paper>
             <Tooltip title="scrollable">
               <Typography className={classes.headBar}>
@@ -143,20 +151,20 @@ function Dashboard() {
           </Paper>
         </Grid>
         {/* next section */}
-        <Grid item xs={6} md={4}>
+        <Grid item xs={12} md={4}>
           <Paper className={classes.paper}>
             <ComponentPanel />
           </Paper>
         </Grid>
         {/* next section */}
-        <Grid item xs={6} md={4}>
-          <Paper className={classes.paper}>
-            <PieChartLabel />
-          </Paper>
-        </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid item xs={12} md={4}>
           <Paper className={classes.pieChartContainer}>
             <PieChartJS />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Paper className={classes.paper}>
+            <PieChartLabel />
           </Paper>
         </Grid>
       </Grid>

@@ -32,12 +32,12 @@ export default function FileTable({ repo }: any) {
   const RowData = data.repository.object.entries;
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "File Name", flex: 0.6 },
+    { field: "name", headerName: "File Name", flex: 0.5 },
     { field: "byteSize", headerName: "Size (bytes)", flex: 0.3 },
     {
       field: "commitUrl",
       headerName: "Access",
-      flex: 0.1,
+      flex: 0.2,
       renderCell: (params) => (
         <a href={params.row.commitUrl} target="_blank" rel="noreferrer">
           <Launch />
