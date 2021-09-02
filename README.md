@@ -2,7 +2,8 @@
 
 A dashboard for viewing Github data.
 <br>
-### [YOUTUBE VIDEO LINK](https://youtu.be/3nPlF2U9U8w)
+### [YOUTUBE VIDEO LINK](https://youtu.be/jPRHV1Rv8BA)
+[video(old)](https://youtu.be/3nPlF2U9U8w)
 
 > ## Setup and Walkthrough
 
